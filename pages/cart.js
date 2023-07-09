@@ -115,7 +115,7 @@ const Cart = () => {
                    className="w-[300px] md:w-[400px]" 
                    alt={"empty cart"}
                 />
-                <span className="text-xl font-bold">
+                <span className="text-xl text-center font-bold leading-tight">
                     Your cart is empty
                 </span>
                 <span className="text-center mt-4">
@@ -124,7 +124,7 @@ const Cart = () => {
                     Go ahead and explore top categories.
                 </span>
                 <Link href="/"
-                className="py-4 px-8 rounded-full bg-black text-white text-lg
+                className="text-center py-4 px-8 rounded-full bg-black text-white text-lg
                 font-medium transition-transform active:scale-95 mb-3 
                 hover:opacity-75 mt-8 leading-tight">
                     Continue Shopping
