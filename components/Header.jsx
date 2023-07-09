@@ -135,11 +135,11 @@ import MenuMobile from './MenuMobile';
 
 import { IoMdHeartEmpty } from "react-icons/io";
 import { BsCart } from "react-icons/bs";
-import { BiMenuAltRight } from "react-icons/bi";
+import { BiMenuAltRight, BiSearch } from "react-icons/bi";
 import { VscChromeClose } from "react-icons/vsc";
 import { fetchDataFromApi } from '@/utils/api';
 import { useSelector } from 'react-redux';
-import SearchBar from './SearchBar';
+import SearchResults from '@/pages/SearchResults';
 
 const Header = () => {
   const [mobileMenu, setMobileMenu] = useState(false);
@@ -147,7 +147,8 @@ const Header = () => {
   const [show, setShow] = useState("translate-y-0");
   const [lastScrollY, setLastScrollY] = useState(0);
   const [categories, setCategories] = useState(null);
-
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const { cartItems } = useSelector((state) => state.cart);
 
   const controlNavbar = () => {
@@ -166,8 +167,8 @@ const Header = () => {
   useEffect(() => {
     window.addEventListener("scroll", controlNavbar);
     return () => {
-      window.removeEventListener("scroll", controlNavbar)
-    }
+      window.removeEventListener("scroll", controlNavbar);
+    };
   }, [lastScrollY]);
 
   useEffect(() => {
@@ -179,25 +180,36 @@ const Header = () => {
     setCategories(data);
   };
 
-  const handleSearch = (searchQuery) => {
-    // Handle search query
+  const handleSearch = () => {
+    // Implement search functionality here
     console.log("Search query:", searchQuery);
+    // Redirect to search results page
+    setSearchOpen(false);
+    setSearchQuery("");
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
   };
 
   return (
-    <header className={`w-full h-[50px] md:h-[80px] bg-white flex items-center justify-between z-20 sticky top-0 transition-transform duration-300 ${show}`}>
-      <Wrapper className="h-[60px] flex justify-between items-center">
-        <Link href="/">
-          <img src="/logo.svg" className="w-[40px] md:w-[60px]" />
-        </Link>
-        <Menu
-          showCatMenu={showCatMenu}
-          setShowCatMenu={setShowCatMenu}
-          categories={categories}
-        />
+    <>
+      <header
+        className={`w-full h-[50px] md:h-[80px] bg-white flex items-center justify-between z-20 sticky top-0 transition-transform duration-300 ${show}`}
+      >
+        <Wrapper className="h-[60px] flex justify-between items-center">
+          <Link href="/">
+            <img src="/logo.svg" className="w-[40px] md:w-[60px]" />
+          </Link>
+          <Menu
+            showCatMenu={showCatMenu}
+            setShowCatMenu={setShowCatMenu}
+            categories={categories}
+          />
 
-        {mobileMenu &&
-          (
+          {mobileMenu && (
             <MenuMobile
               showCatMenu={showCatMenu}
               setShowCatMenu={setShowCatMenu}
@@ -206,40 +218,76 @@ const Header = () => {
             />
           )}
 
-        <div className="flex items-center gap-2 text-black">
-          {/* Heart Icon Start*/}
-          <div className="w-8 md:w-12 h-8 md:h-12 rounded-full flex justify-center items-center hover:bg-black/[0.05] cursor-pointer relative">
-            <IoMdHeartEmpty className="text-[19px] md:text-[24px]" />
-            <div className="h-[14px] md:h-[18px] min-w-[14px] md:min-w-[18px] rounded-full bg-red-600 absolute top-1 left-5 md:left-7 text-white text-[10px] md:text-[12px] flex justify-center items-center px-[2px] md:px-[5px]">51</div>
-          </div>
-          {/* Heart Icon End*/}
-
-          {/* Cart Icon Start*/}
-          <Link href="/cart">
+          <div className="flex items-center gap-2 text-black">
+            {/* Heart Icon Start*/}
             <div className="w-8 md:w-12 h-8 md:h-12 rounded-full flex justify-center items-center hover:bg-black/[0.05] cursor-pointer relative">
-              <BsCart className="text-[15px] md:text-[20px]" />
-              {cartItems.length > 0 && <div className="h-[14px] md:h-[18px] min-w-[14px] md:min-w-[18px] rounded-full bg-red-600 absolute top-1 left-5 md:left-7 text-white text-[10px] md:text-[12px] flex justify-center items-center px-[2px] md:px-[5px]">
-                {cartItems.length}
-              </div>}
+              <IoMdHeartEmpty className="text-[19px] md:text-[24px]" />
+              <div className="h-[14px] md:h-[18px] min-w-[14px] md:min-w-[18px] rounded-full bg-red-600 absolute top-1 left-5 md:left-7 text-white text-[10px] md:text-[12px] flex justify-center items-center px-[2px] md:px-[5px]">
+                51
+              </div>
             </div>
-          </Link>
-          {/* Cart Icon End*/}
+            {/* Heart Icon End*/}
 
-          {/*Mobile Icon Start*/}
-          <div className="w-8 md:w-12 h-8 md:h-12 rounded-full flex md:hidden justify-center items-center hover:bg-black/[0.05] cursor-pointer relative -mr-2">
-            {mobileMenu ? (
-              <VscChromeClose className="text-[16px]" onClick={() => setMobileMenu(false)} />
-            ) : (
-              <BiMenuAltRight className="text-[20px]" onClick={() => setMobileMenu(true)} />
-            )}
+            {/* Cart Icon Start*/}
+            <Link href="/cart">
+              <div className="w-8 md:w-12 h-8 md:h-12 rounded-full flex justify-center items-center hover:bg-black/[0.05] cursor-pointer relative">
+                <BsCart className="text-[15px] md:text-[20px]" />
+                {cartItems.length > 0 && (
+                  <div className="h-[14px] md:h-[18px] min-w-[14px] md:min-w-[18px] rounded-full bg-red-600 absolute top-1 left-5 md:left-7 text-white text-[10px] md:text-[12px] flex justify-center items-center px-[2px] md:px-[5px]">
+                    {cartItems.length}
+                  </div>
+                )}
+              </div>
+            </Link>
+
+            {/* Cart Icon End*/}
+
+            {/* Mobile Icon Start*/}
+            <div
+              className="w-8 md:w-12 h-8 md:h-12 rounded-full flex md:hidden justify-center items-center hover:bg-black/[0.05] cursor-pointer relative -mr-2"
+              onClick={() => setMobileMenu(!mobileMenu)}
+            >
+              {mobileMenu ? (
+                <VscChromeClose className="text-[16px]" />
+              ) : (
+                <BiMenuAltRight className="text-[20px]" />
+              )}
+            </div>
+            {/* Mobile Icon End*/}
+
+            {/* Search Icon Start */}
+            <div
+              className="w-8 md:w-12 h-8 md:h-12 rounded-full flex justify-center items-center hover:bg-black/[0.05] cursor-pointer relative"
+              onClick={() => setSearchOpen(!searchOpen)}
+            >
+              <BiSearch className="text-[18px] md:text-[24px]" />
+            </div>
+            {/* Search Icon End */}
           </div>
-          {/*Mobile Icon ENd*/}
-        </div>
-      </Wrapper>
+        </Wrapper>
+      </header>
 
-      {/* Search Bar */}
-      <SearchBar onSearch={handleSearch} />
-    </header>
+      {searchOpen && (
+        <div className="fixed top-[60px] md:top-[80px] left-0 w-full z-30 bg-white px-4 py-2">
+          <div className="flex items-center justify-between">
+            <input
+              type="text"
+              placeholder="Search..."
+              className="w-full py-2 px-3 rounded-lg border border-gray-300 focus:outline-none"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyPress={handleKeyPress}
+            />
+            <button
+              className="ml-2 text-gray-500 hover:text-gray-700 focus:outline-none"
+              onClick={handleSearch}
+            >
+              Search
+            </button>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 
