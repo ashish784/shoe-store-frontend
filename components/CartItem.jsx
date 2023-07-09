@@ -3,7 +3,6 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import Image from "next/image";
 import { updateCart, removeFromCart } from '@/store/cartSlice';
 import { useDispatch } from 'react-redux';
-import RelatedProducts from './RelatedProducts';
 
 
 const CartItem = ({ data }) => {
@@ -102,9 +101,7 @@ const CartItem = ({ data }) => {
                     />
                 </div>
         </div>  
-        <RelatedProducts />  
     </div>
-    
   );
 };
 

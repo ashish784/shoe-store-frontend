@@ -247,12 +247,6 @@ const Cart = () => {
             </Link>
           </div>
         )}
-
-        <div className="mt-[50px] md:mt-[100px] mb-[100px] md:mb-0">
-          <div className="text-2xl font-bold mb-5">You Should Try This</div>
-        </div>
-
-        <RelatedProducts />
       </Wrapper>
     </div>
   );
