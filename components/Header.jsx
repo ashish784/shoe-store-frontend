@@ -140,6 +140,7 @@ import { VscChromeClose } from "react-icons/vsc";
 import { fetchDataFromApi } from '@/utils/api';
 import { useSelector } from 'react-redux';
 import SearchResults from '@/pages/SearchResults';
+import SearchPage from '@/pages/SearchPage'; // Add this line
 
 const Header = () => {
   const [mobileMenu, setMobileMenu] = useState(false);
@@ -287,6 +288,8 @@ const Header = () => {
           </div>
         </div>
       )}
+
+      <SearchPage /> {/* Add this line */}
     </>
   );
 };
