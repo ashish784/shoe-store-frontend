@@ -3,6 +3,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import Image from "next/image";
 import { updateCart, removeFromCart } from '@/store/cartSlice';
 import { useDispatch } from 'react-redux';
+import RelatedProducts from './RelatedProducts';
 
 
 const CartItem = ({ data }) => {
@@ -100,8 +101,10 @@ const CartItem = ({ data }) => {
                          hover:text-black text-[16px] md:text-[20px]" 
                     />
                 </div>
-        </div>    
+        </div>  
+        <RelatedProducts />  
     </div>
+    
   );
 };
 
