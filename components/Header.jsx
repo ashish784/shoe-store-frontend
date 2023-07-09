@@ -135,12 +135,11 @@ import MenuMobile from './MenuMobile';
 
 import { IoMdHeartEmpty } from "react-icons/io";
 import { BsCart } from "react-icons/bs";
-import { BiMenuAltRight } from "react-icons/bi";
+import { BiMenuAltRight, BiSearch } from "react-icons/bi";
 import { VscChromeClose } from "react-icons/vsc";
 import { fetchDataFromApi } from '@/utils/api';
 import { useSelector } from 'react-redux';
-import SearchBar from './SearchBar';
-
+import SearchButton from './SearchButton';
 
 const Header = () => {
   const [mobileMenu, setMobileMenu] = useState(false);
@@ -190,9 +189,9 @@ const Header = () => {
           <img src="/logo.svg" className="w-[40px] md:w-[60px]" />
         </Link>
         <div className="flex items-center gap-2 text-black">
-          {/* Search Button Start */}
-          <SearchBar />
-          {/* Search Button End */}
+          {/* Search Icon Start */}
+          <SearchButton className="text-[20px] cursor-pointer" />
+          {/* Search Icon End */}
 
           {/* Heart Icon Start*/}
           <div className="w-8 md:w-12 h-8 md:h-12 rounded-full flex justify-center items-center
