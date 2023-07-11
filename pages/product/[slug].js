@@ -154,25 +154,7 @@ const ProductDetails = ({product, products}) => {
                 {/* WISHLIST START  */}
                 <button className="w-full py-4 rounded-full border border-black text-lg
                 font-medium transition-transform active:scale-95 flex items-center 
-                justify-center gap-2 hover:opacity-75 mb-10"
-                onClick={()=> {
-                    if(!selectedSize) {
-                        setShowError(true);
-                        document.getElementById("sizeGrid").scrollIntoView({
-                            block: "center",
-                            behavior: "smooth"
-                        })
-                    } else {
-                        dispatch(addToWishlist({
-                            ...product?.data?.[0],
-                            selectedSize,
-                            oneQuantityPrice: p.price,
-                        })
-                       );
-                       notify();
-                    }
-                    
-                }}>
+                justify-center gap-2 hover:opacity-75 mb-10">
                     WISHLIST
                     <IoMdHeartEmpty size={20} />
                 </button>
